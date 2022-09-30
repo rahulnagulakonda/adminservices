@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.admin.main.model.Login;
 import com.admin.main.model.User;
 import com.admin.main.repository.RoleRepository;
 import com.admin.main.repository.UserRepository;
 import com.admin.main.repository.UserRoleMappingRepository;
+import com.admin.main.util.JwtGenerator;
 
 @Service
 public class LoginService {
@@ -20,8 +22,11 @@ public class LoginService {
 	@Autowired
 	private UserRoleMappingRepository urmRepo;
 	
+	@Autowired
+	private JwtGenerator jwt;
+	
 	//login 
-	public User userLogin(User user) throws RuntimeException{
+	public Login userLogin(User user) throws RuntimeException{
 		List<User> allUsers = userRepo.findAll();
 		
 		User authUser = userRepo.findByEmail(user.getEmail());
@@ -34,13 +39,10 @@ public class LoginService {
 				if(!authUser.getPassword().equals(user.getPassword())) {
 					throw new RuntimeException("Incorrect Password");
 				} else {
-					return authUser;
+					String token = jwt.generateJwt(authUser);
+					return new Login(authUser,token);
 				}
 			}
 		}
-		
-		
-	
 	}
-
 }

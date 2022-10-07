@@ -23,7 +23,7 @@ public class LoginController {
 	
 	//login
 	@PostMapping()
-	public ResponseEntity userLogin(@RequestBody User user) {
+	public ResponseEntity login(@RequestBody User user) {
 		try {
 			return new ResponseEntity(loginService.userLogin(user),HttpStatus.ACCEPTED);
 		} catch(RuntimeException re) {

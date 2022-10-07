@@ -23,6 +23,11 @@ public class Role {
 		super();
 	}
 	
+	public Role(String roleName) {
+		super();
+		this.roleName = roleName;
+	}
+
 	//All Args Constructor
 	public Role(int roleId, String roleName) {
 		super();

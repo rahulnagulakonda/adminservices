@@ -10,4 +10,5 @@ import com.admin.main.model.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer>{
 	List<Role> findAll();
+	Role findByRoleName(String roleName);
 }

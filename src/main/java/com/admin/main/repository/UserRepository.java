@@ -10,7 +10,7 @@ import com.admin.main.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 	List<User> findAll();
-	User findByEmployeeId(int employeeId);
+	User findByUserId(int userId);
 	User findByEmail(String email);
 	User findByUserName(String userName);
 }

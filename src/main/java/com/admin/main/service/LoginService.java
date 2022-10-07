@@ -9,7 +9,6 @@ import com.admin.main.model.Login;
 import com.admin.main.model.User;
 import com.admin.main.repository.RoleRepository;
 import com.admin.main.repository.UserRepository;
-import com.admin.main.repository.UserRoleMappingRepository;
 import com.admin.main.util.JwtGenerator;
 
 @Service
@@ -19,8 +18,6 @@ public class LoginService {
 	private UserRepository userRepo;
 	@Autowired
 	private RoleRepository roleRepo;
-	@Autowired
-	private UserRoleMappingRepository urmRepo;
 	
 	@Autowired
 	private JwtGenerator jwt;

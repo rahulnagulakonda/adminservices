@@ -25,7 +25,7 @@ public class JwtGenerator {
 
 		// claims
 		Claims claims = Jwts.claims()
-				.setIssuer(Integer.toString(user.getEmployeeId()))
+				.setIssuer(Integer.toString(user.getUserId()))
 				.setIssuedAt(issuedAt)
 				.setExpiration(expiryAt);
 

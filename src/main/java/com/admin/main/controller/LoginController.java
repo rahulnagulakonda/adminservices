@@ -23,11 +23,11 @@ public class LoginController {
 	
 	//login
 	@PostMapping()
-	public ResponseEntity login(@RequestBody User user) {
+	public ResponseEntity<Object> login(@RequestBody User user) {
 		try {
-			return new ResponseEntity(loginService.userLogin(user),HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(loginService.userLogin(user),HttpStatus.ACCEPTED);
 		} catch(RuntimeException re) {
-			return new ResponseEntity(re.getMessage(),HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(re.getMessage(),HttpStatus.UNAUTHORIZED);
 		}
 	}
 

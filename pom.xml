@@ -7,7 +7,7 @@
 		<version>2.7.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.admin</groupId>
+	<groupId>com.interon</groupId>
 	<artifactId>AdminServices</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Interon</name>

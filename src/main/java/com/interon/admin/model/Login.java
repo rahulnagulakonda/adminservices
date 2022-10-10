@@ -1,4 +1,4 @@
-package com.admin.main.model;
+package com.interon.admin.model;
 
 import org.springframework.stereotype.Component;
 

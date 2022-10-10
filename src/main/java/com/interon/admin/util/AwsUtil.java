@@ -1,4 +1,4 @@
-package com.admin.main.util;
+package com.interon.admin.util;
 
 import org.springframework.stereotype.Component;
 

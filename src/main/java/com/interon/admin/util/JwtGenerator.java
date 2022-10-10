@@ -1,10 +1,10 @@
-package com.admin.main.util;
+package com.interon.admin.util;
 
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import com.admin.main.model.User;
+import com.interon.admin.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,4 +1,4 @@
-package com.admin.main.model;
+package com.interon.admin.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

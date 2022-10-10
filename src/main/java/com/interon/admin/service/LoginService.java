@@ -1,15 +1,15 @@
-package com.admin.main.service;
+package com.interon.admin.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.admin.main.model.Login;
-import com.admin.main.model.User;
-import com.admin.main.repository.RoleRepository;
-import com.admin.main.repository.UserRepository;
-import com.admin.main.util.JwtGenerator;
+import com.interon.admin.model.Login;
+import com.interon.admin.model.User;
+import com.interon.admin.repository.RoleRepository;
+import com.interon.admin.repository.UserRepository;
+import com.interon.admin.util.JwtGenerator;
 
 @Service
 public class LoginService {

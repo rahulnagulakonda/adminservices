@@ -1,4 +1,4 @@
-package com.admin.main;
+package com.interon.admin;
 
 import javax.sql.DataSource;
 
@@ -8,7 +8,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.admin.main.util.AwsUtil;
+import com.interon.admin.util.AwsUtil;
 
 @Configuration
 public class AdminConfig {

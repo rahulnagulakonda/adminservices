@@ -1,4 +1,4 @@
-package com.admin.main;
+package com.interon.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

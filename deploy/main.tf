@@ -25,7 +25,15 @@ resource "aws_ecs_task_definition" "mytaskdefinition" {
                     "value": "arn:aws:s3:::adminservicesbucket/AWS.env",
                     "type": "s3"
                 }
-            ]
+            ],
+            "logConfiguration": {
+            	"logDriver": "awslogs",
+          		"options": {
+            		"awslogs-group": "/ecs/adminservices_task",
+            		"awslogs-region": "us-east-1",
+            		"awslogs-stream-prefix": "ecs"
+          		}
+        	}
             }
             
         ]

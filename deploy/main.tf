@@ -19,6 +19,12 @@ resource "aws_ecs_task_definition" "mytaskdefinition" {
                 {
                     "containerPort" : 8082,
                 }
+            ],
+            "environmentFiles": [
+                {
+                    "value": "arn:aws:s3:::adminservicesbucket/AWS.env",
+                    "type": "s3"
+                }
             ]
             }
             
@@ -38,7 +44,7 @@ resource "aws_ecs_service" "myclutserservice" {
     name = "adminservices_service"
     desired_count = 1
     deployment_maximum_percent         = "200"
-    deployment_minimum_healthy_percent = "75"
+    deployment_minimum_healthy_percent = "100"
     network_configuration {
         subnets = ["subnet-0a23c6f570616fa44"]
         security_groups = ["sg-07a278ab490208e09"]

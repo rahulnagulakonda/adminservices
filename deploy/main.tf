@@ -7,14 +7,14 @@ resource "aws_ecs_task_definition" "mytaskdefinition" {
     family = "adminservices_task"
     network_mode = "awsvpc"
     execution_role_arn = "arn:aws:iam::429055212256:role/ecsTaskExecutionRole"
-    memory = 1024
-    cpu = 512
+    memory = 2048
+    cpu = 1024
     container_definitions = jsonencode(
         [
             {
             "name" : "adminservices_container",
             "image" : "429055212256.dkr.ecr.us-east-1.amazonaws.com/interon:latest",
-            "memory" : 512,
+            "memory" : 1024,
             "portMappings" : [
                 {
                     "containerPort" : 8082,

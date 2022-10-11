@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "mytaskdefinition" {
             "logConfiguration": {
             	"logDriver": "awslogs",
           		"options": {
-            		"awslogs-group": "/ecs/adminservices_task",
+            		"awslogs-group": "/ecs/adminservices",
             		"awslogs-region": "us-east-1",
             		"awslogs-stream-prefix": "ecs"
           		}

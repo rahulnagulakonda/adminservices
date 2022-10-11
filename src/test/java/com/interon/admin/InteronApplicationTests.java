@@ -1,6 +1,5 @@
-package com.interon.admin;
 /*
- * package com.admin.main;
+ * package com.interon.admin;
  * 
  * import org.junit.jupiter.api.Test; import
  * org.springframework.boot.test.context.SpringBootTest;

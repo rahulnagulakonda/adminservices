@@ -1,6 +1,8 @@
 package com.interon.admin.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,19 +22,22 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userid")
-	private int userId;
+	private String userId;
 	@Column(name = "firstname")
 	private String firstName;
 	@Column(name = "lastname")
 	private String lastName;
+	@Column(name = "nickname")
+	private String nickName;
 	@Column(name = "email")
 	private String email;
 	@Column(name = "username")
 	private String userName;
 	@Column(name = "password")
 	private String password;
+	@Column(name = "reenterpassword")
+	private String reEnterPassword;
 	@Column(name = "phonenumber")
 	private String phoneNumber;
 	@Column(name = "address1")
@@ -47,12 +52,18 @@ public class User {
 	private String zipCode;
 	@Column(name = "country")
 	private String country;
-	@Column(name = "relationshipstatus")
-	private String relationshipStatus;
-	@Column(name = "emergencycontactperson")
-	private String emergencyContactPerson;
+	@Column(name = "gender")
+	private String gender;
+	@Column(name = "emergencycontactname")
+	private String emergencyContactName;
+	@Column(name = "emergencycontactrelation")
+	private String emergencyContactRelation;
+	@Column(name = "emergencycontactemail")
+	private String emergencyContactEmail;
 	@Column(name = "emergencycontactnumber")
 	private String emergencyContactNumber;
+	@Column(name = "emergencycontactlocation")
+	private String emergencyContactLocation;
 	@Column(name = "status")
 	private String status = "active";
 	
@@ -60,50 +71,27 @@ public class User {
 	@JoinTable(name="user_role",
 	joinColumns = @JoinColumn(name="user_id", referencedColumnName="userid", unique=false),
 	inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName="roleid", unique=false))
-	private Set<Role> roles = new HashSet<>();
+	private List<Role> roles = new ArrayList<>();
 
 	// no args constructor
 	public User() {
 		super();
 	}
-
-	// all args except set constructor
-	public User(int userId, String firstName, String lastName, String email, String userName, String password,
-			String phoneNumber, String address1, String address2, String city, String state, String zipCode,
-			String country, String relationshipStatus, String emergencyContactPerson, String emergencyContactNumber,
-			String status) {
-		super();
-		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.userName = userName;
-		this.password = password;
-		this.phoneNumber = phoneNumber;
-		this.address1 = address1;
-		this.address2 = address2;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
-		this.country = country;
-		this.relationshipStatus = relationshipStatus;
-		this.emergencyContactPerson = emergencyContactPerson;
-		this.emergencyContactNumber = emergencyContactNumber;
-		this.status = status;
-	}
 	
-	//all args constructor
-	public User(int userId, String firstName, String lastName, String email, String userName, String password,
-			String phoneNumber, String address1, String address2, String city, String state, String zipCode,
-			String country, String relationshipStatus, String emergencyContactPerson, String emergencyContactNumber,
-			String status, Set<Role> roles) {
+	public User(String userId, String firstName, String lastName, String nickName, String email, String userName,
+			String password, String reEnterPassword, String phoneNumber, String address1, String address2, String city,
+			String state, String zipCode, String country, String gender, String emergencyContactName,
+			String emergencyContactRelation, String emergencyContactEmail, String emergencyContactNumber,
+			String emergencyContactLocation, String status, List<Role> roles) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.nickName = nickName;
 		this.email = email;
 		this.userName = userName;
 		this.password = password;
+		this.reEnterPassword = reEnterPassword;
 		this.phoneNumber = phoneNumber;
 		this.address1 = address1;
 		this.address2 = address2;
@@ -111,19 +99,22 @@ public class User {
 		this.state = state;
 		this.zipCode = zipCode;
 		this.country = country;
-		this.relationshipStatus = relationshipStatus;
-		this.emergencyContactPerson = emergencyContactPerson;
+		this.gender = gender;
+		this.emergencyContactName = emergencyContactName;
+		this.emergencyContactRelation = emergencyContactRelation;
+		this.emergencyContactEmail = emergencyContactEmail;
 		this.emergencyContactNumber = emergencyContactNumber;
+		this.emergencyContactLocation = emergencyContactLocation;
 		this.status = status;
 		this.roles = roles;
 	}
 
-	// getters and setters
-	public int getUserId() {
+	//getters and setters
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -141,6 +132,14 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getEmail() {
@@ -165,6 +164,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getReEnterPassword() {
+		return reEnterPassword;
+	}
+
+	public void setReEnterPassword(String reEnterPassword) {
+		this.reEnterPassword = reEnterPassword;
 	}
 
 	public String getPhoneNumber() {
@@ -223,20 +230,36 @@ public class User {
 		this.country = country;
 	}
 
-	public String getRelationshipStatus() {
-		return relationshipStatus;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setRelationshipStatus(String relationshipStatus) {
-		this.relationshipStatus = relationshipStatus;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public String getEmergencyContactPerson() {
-		return emergencyContactPerson;
+	public String getEmergencyContactName() {
+		return emergencyContactName;
 	}
 
-	public void setEmergencyContactPerson(String emergencyContactPerson) {
-		this.emergencyContactPerson = emergencyContactPerson;
+	public void setEmergencyContactName(String emergencyContactName) {
+		this.emergencyContactName = emergencyContactName;
+	}
+
+	public String getEmergencyContactRelation() {
+		return emergencyContactRelation;
+	}
+
+	public void setEmergencyContactRelation(String emergencyContactRelation) {
+		this.emergencyContactRelation = emergencyContactRelation;
+	}
+
+	public String getEmergencyContactEmail() {
+		return emergencyContactEmail;
+	}
+
+	public void setEmergencyContactEmail(String emergencyContactEmail) {
+		this.emergencyContactEmail = emergencyContactEmail;
 	}
 
 	public String getEmergencyContactNumber() {
@@ -247,6 +270,14 @@ public class User {
 		this.emergencyContactNumber = emergencyContactNumber;
 	}
 
+	public String getEmergencyContactLocation() {
+		return emergencyContactLocation;
+	}
+
+	public void setEmergencyContactLocation(String emergencyContactLocation) {
+		this.emergencyContactLocation = emergencyContactLocation;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -255,12 +286,14 @@ public class User {
 		this.status = status;
 	}
 
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
-	}
- 
+	}	
+	
+	
+	
 }

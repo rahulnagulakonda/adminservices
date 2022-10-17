@@ -1,15 +1,19 @@
 package com.interon.admin.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.interon.admin.enums.Status;
 import com.interon.admin.model.Role;
 import com.interon.admin.model.User;
 import com.interon.admin.repository.RoleRepository;
 import com.interon.admin.repository.UserRepository;
+import com.interon.admin.validation.UserValidator;
+import com.interon.admin.validation.ValidationStatus;
 
 @Service
 public class UserService {
@@ -18,6 +22,9 @@ public class UserService {
 	private UserRepository userRepo;
 	@Autowired
 	private RoleRepository roleRepo;
+	
+	@Autowired
+	private UserValidator userValidator;
 
 	// returns all the users present, irrespective of the status of the user
 	public List<User> findAllUsers() throws RuntimeException {
@@ -39,26 +46,39 @@ public class UserService {
 		}
 	}
 
+	// returns the details of the created role
+	public void createNewRole(Role newRole) throws RuntimeException {
+		Role findRole = roleRepo.findByRoleName(newRole.getRoleName());
+		if (findRole != null) {
+			throw new RuntimeException("Role already exists");
+		} else {
+			roleRepo.save(newRole);
+		}
+	}
+
 	// returns the details of the created user
-	public void createNewUser(User newUser) throws RuntimeException {
-
-		User findUser = userRepo.findByEmail(newUser.getEmail());
-
-		if (findUser != null) {
-			throw new RuntimeException("User Already Exists with Same Email");
+	public ValidationStatus createNewUser(User newUser) throws RuntimeException {
+		ValidationStatus validUser = userValidator.isValidForCreate(newUser);
+		if(validUser.getStatus()==Status.INVALID) {
+			return validUser;
 		} else {
 			userRepo.save(newUser);
+			validUser.getMessages().add("User Successfully Saved");
+			return validUser;
 		}
 	}
 
 	// returns the details of the user after updating
-	public User updateUser(User user, int id) throws RuntimeException {
-		User oldUser = userRepo.findByUserId(id);
-		if (oldUser == null) {
-			throw new RuntimeException("User Not Found");
+	public ValidationStatus updateUser(User user, String id) throws RuntimeException {
+		ValidationStatus validUser = userValidator.isValidForUpdate(user,id);
+		if(validUser.getStatus()==Status.INVALID) {
+			return validUser;
 		} else {
+			User oldUser = userRepo.findByUserId(id);
+			oldUser.setUserId(user.getUserId());
 			oldUser.setFirstName(user.getFirstName());
 			oldUser.setLastName(user.getLastName());
+			oldUser.setNickName(user.getNickName());
 			oldUser.setEmail(user.getEmail());
 			oldUser.setPhoneNumber(user.getPhoneNumber());
 			oldUser.setAddress1(user.getAddress1());
@@ -67,19 +87,22 @@ public class UserService {
 			oldUser.setState(user.getState());
 			oldUser.setZipCode(user.getZipCode());
 			oldUser.setCountry(user.getCountry());
-			oldUser.setRelationshipStatus(user.getRelationshipStatus());
-			oldUser.setEmergencyContactPerson(user.getEmergencyContactPerson());
+			oldUser.setGender(user.getGender());
+			oldUser.setEmergencyContactName(user.getEmergencyContactName());
+			oldUser.setEmergencyContactRelation(user.getEmergencyContactRelation());
 			oldUser.setEmergencyContactNumber(user.getEmergencyContactNumber());
-			oldUser.setStatus(user.getStatus());
+			oldUser.setEmergencyContactEmail(user.getEmergencyContactEmail());
+			oldUser.setEmergencyContactLocation(user.getEmergencyContactLocation());
 			oldUser.setRoles(user.getRoles());
+			userRepo.save(oldUser);
+			validUser.getMessages().add("User Successfully Updated");
+			return validUser;
 		}
-		userRepo.save(oldUser);
-		return oldUser;
 	}
 
 	// returns the details of the user after setting status to deactivated
-	public User deactiveUser(int empId) throws RuntimeException {
-		User userById = userRepo.findByUserId(empId);
+	public User deactiveUser(String userId) throws RuntimeException {
+		User userById = userRepo.findByUserId(userId);
 		if (userById == null) {
 			throw new RuntimeException("User Doesn't Exist");
 		} else {
@@ -94,8 +117,8 @@ public class UserService {
 	}
 
 	// returns the details of a specific user using employeeId
-	public User findUserDetails(int empId) throws RuntimeException {
-		User findUser = userRepo.findByUserId(empId);
+	public User findUserDetails(String userId) throws RuntimeException {
+		User findUser = userRepo.findByUserId(userId);
 		if (findUser == null) {
 			throw new RuntimeException("User not found");
 		} else {
@@ -104,44 +127,21 @@ public class UserService {
 	}
 
 	// returns the user details with updated password
-	public User changePassword(int empId, User newPass) throws RuntimeException {
-		User userPass = userRepo.findByUserId(empId);
+	public User changePassword(String userId, User newPass) throws RuntimeException {
+		User userPass = userRepo.findByUserId(userId);
 		if (userPass == null) {
 			throw new RuntimeException("User not found");
 		} else {
 			if (userPass.getPassword().equals(newPass.getPassword())) {
 				throw new RuntimeException("New Password matches with Old Password");
+			} else if(!newPass.getPassword().equals(newPass.getReEnterPassword())) {
+				throw new RuntimeException("Passwords doesn't match");
 			} else {
 				userPass.setPassword(newPass.getPassword());
 				userRepo.save(userPass);
 				return userPass;
 			}
 		}
-	}
-
-	// returns the user details after updating
-	public User updateUserDetails(int empId, User updateUser) throws RuntimeException {
-		User oldUser = userRepo.findByUserId(empId);
-		if (oldUser == null) {
-			throw new RuntimeException("User not found");
-		} else {
-			oldUser.setFirstName(updateUser.getFirstName());
-			oldUser.setLastName(updateUser.getLastName());
-			oldUser.setEmail(updateUser.getEmail());
-			oldUser.setUserName(updateUser.getUserName());
-			oldUser.setPhoneNumber(updateUser.getPhoneNumber());
-			oldUser.setAddress1(updateUser.getAddress1());
-			oldUser.setAddress2(updateUser.getAddress2());
-			oldUser.setCity(updateUser.getCity());
-			oldUser.setState(updateUser.getState());
-			oldUser.setZipCode(updateUser.getZipCode());
-			oldUser.setCountry(updateUser.getCountry());
-			oldUser.setRelationshipStatus(updateUser.getRelationshipStatus());
-			oldUser.setEmergencyContactPerson(updateUser.getEmergencyContactPerson());
-			oldUser.setEmergencyContactNumber(updateUser.getEmergencyContactNumber());
-		}
-		userRepo.save(oldUser);
-		return oldUser;
 	}
 
 }

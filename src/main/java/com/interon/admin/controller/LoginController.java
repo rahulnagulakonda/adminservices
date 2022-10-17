@@ -23,9 +23,9 @@ public class LoginController {
 	
 	//login
 	@PostMapping()
-	public ResponseEntity<Object> login(@RequestBody User user) {
+	public ResponseEntity<Object> login(@RequestBody User loginDetails) {
 		try {
-			return new ResponseEntity<>(loginService.userLogin(user),HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(loginService.userLogin(loginDetails),HttpStatus.ACCEPTED);
 		} catch(RuntimeException re) {
 			return new ResponseEntity<>(re.getMessage(),HttpStatus.UNAUTHORIZED);
 		}

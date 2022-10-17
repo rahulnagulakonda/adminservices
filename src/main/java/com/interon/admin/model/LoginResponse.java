@@ -3,16 +3,16 @@ package com.interon.admin.model;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Login {
+public class LoginResponse {
 	
 	private User user;
 	private String token;
 	
-	public Login() {
+	public LoginResponse() {
 		super();
 	}
 
-	public Login(User user, String token) {
+	public LoginResponse(User user, String token) {
 		super();
 		this.user = user;
 		this.token = token;

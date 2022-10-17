@@ -16,7 +16,7 @@ import com.interon.admin.util.AwsUtils;
 public class AdminConfig {
 
 	@Autowired
-	private AwsUtils awsUtil;
+	private AwsUtils awsUtils;
 
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource")
@@ -25,7 +25,7 @@ public class AdminConfig {
 		return DataSourceBuilder.create()
 				.url("jdbc:postgresql://interon-db.cgm7zlub4cmv.us-east-1.rds.amazonaws.com:5432/interon")
 				.username("interon")
-				.password(awsUtil.getParaValue("/dev/db-password"))
+				.password(awsUtils.getParaValue("/dev/db-password"))
 				.build();
 
 	}

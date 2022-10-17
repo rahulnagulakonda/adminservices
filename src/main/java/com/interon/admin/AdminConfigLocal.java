@@ -14,7 +14,7 @@ public class AdminConfigLocal {
 
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource")
-	public DataSource dataSource() {
+	public DataSource dataSourceLocal() {
 
 		return DataSourceBuilder.create()
 				.url("jdbc:postgresql://localhost:5432/interon")

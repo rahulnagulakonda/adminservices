@@ -11,7 +11,7 @@ public class AwsUtils {
 
 	private static AWSSimpleSystemsManagement ssm = AWSSimpleSystemsManagementClientBuilder.defaultClient();
 
-	public static String getParaValue(String paraName) {
+	public String getParaValue(String paraName) {
 		return ssm.getParameter(new GetParameterRequest().withWithDecryption(true).withName(paraName)).getParameter().getValue();		
 	}
 	

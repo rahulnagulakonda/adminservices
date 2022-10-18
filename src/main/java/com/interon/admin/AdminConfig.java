@@ -2,7 +2,9 @@ package com.interon.admin;
 
 import javax.sql.DataSource;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -17,15 +19,18 @@ public class AdminConfig {
 
 	@Autowired
 	private AwsUtils awsUtils;
-
+	
+	@Value("${environment}")
+	private String env;
+	
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource dataSource() {
 		
 		return DataSourceBuilder.create()
-				.url("jdbc:postgresql://interon-db.cgm7zlub4cmv.us-east-1.rds.amazonaws.com:5432/interon")
-				.username("interon")
-				.password(awsUtils.getParaValue("/dev/db-password"))
+				.url(awsUtils.getParaValue("/"+env+"/db-url"))
+				.username(awsUtils.getParaValue("/"+env+"/db-username"))
+				.password(awsUtils.getParaValue("/"+env+"/db-password"))
 				.build();
 
 	}

@@ -38,12 +38,10 @@ public class JwtUtils {
 				.compact();
 	}
 	
-	public Claims verifyJwt(String authorization) {
+	public void verifyJwt(String authorization) {
 
 		try {
-			Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(authorization).getBody();
-			System.out.println(claims);
-			return claims;
+			Jwts.parser().setSigningKey(secret).parseClaimsJws(authorization);
 		} catch (RuntimeException re) {
 			throw new RuntimeException("Access Denied");
 		}

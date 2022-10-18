@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.interon.admin.model.LoginForm;
 import com.interon.admin.model.User;
 import com.interon.admin.service.LoginService;
 
@@ -23,7 +24,7 @@ public class LoginController {
 	
 	//login
 	@PostMapping()
-	public ResponseEntity<Object> login(@RequestBody User loginDetails) {
+	public ResponseEntity<Object> login(@RequestBody LoginForm loginDetails) {
 		try {
 			return new ResponseEntity<>(loginService.userLogin(loginDetails),HttpStatus.ACCEPTED);
 		} catch(RuntimeException re) {

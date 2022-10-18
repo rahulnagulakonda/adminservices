@@ -21,13 +21,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 		
 		String jwt = request.getHeader("authorization");
 		
-		//System.out.println(request.getRequestURI());
 		jwtUtils.verifyJwt(jwt);
-		/*
-		 * if(!request.getRequestURI().contains("/login")) {
-		 * 
-		 * }
-		 */
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

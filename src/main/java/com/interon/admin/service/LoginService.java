@@ -28,7 +28,7 @@ public class LoginService {
 		if(emailLogin==null) {
 			throw new RuntimeException("User Doesn't Exist");
 		} else {
-			if(emailLogin.getStatus().equals("deactivated")) {
+			if(!emailLogin.getStatus().equals("active")) {
 				throw new RuntimeException("Please contact admin to active your account");
 			} else {
 				if(!emailLogin.getPassword().equals(loginDetails.getPassword())) {

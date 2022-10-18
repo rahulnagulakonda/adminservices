@@ -1,4 +1,4 @@
-
+/*
 package com.interon.admin;
 
 import javax.sql.DataSource;
@@ -23,4 +23,4 @@ public class AdminConfigLocal {
 				.password("September2022!").build();
 	}
 }
-
+*/

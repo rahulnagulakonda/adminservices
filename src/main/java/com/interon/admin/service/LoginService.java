@@ -23,41 +23,22 @@ public class LoginService {
 	//login 
 	public LoginResponse userLogin(User loginDetails) throws RuntimeException{
 		
-		String userName = loginDetails.getUserName();
+		User emailLogin = userRepo.findByEmail(loginDetails.getEmail());
 		
-		User emailLogin = userRepo.findByEmail(userName);
-		User userNameLogin = userRepo.findByUserName(userName);
-		
-		if(emailLogin==null && userNameLogin==null) {
+		if(emailLogin==null) {
 			throw new RuntimeException("User Doesn't Exist");
 		} else {
-			if(emailLogin!=null) {
-				if(emailLogin.getStatus().equals("deactivated")) {
-					throw new RuntimeException("Please contact admin to active your account");
-				} else {
-					if(!emailLogin.getPassword().equals(loginDetails.getPassword())) {
-						throw new RuntimeException("Incorrect Password");
-					} else {
-						String token = jwt.generateJwt(emailLogin);
-						loginResponse.setUser(emailLogin);
-						loginResponse.setToken(token);
-						return loginResponse;
-					}
-				}
+			if(emailLogin.getStatus().equals("deactivated")) {
+				throw new RuntimeException("Please contact admin to active your account");
 			} else {
-				if(userNameLogin.getStatus().equals("deactivated")) {
-					throw new RuntimeException("Please contact admin to active your account");
+				if(!emailLogin.getPassword().equals(loginDetails.getPassword())) {
+					throw new RuntimeException("Incorrect Password");
 				} else {
-					if(!userNameLogin.getPassword().equals(loginDetails.getPassword())) {
-						throw new RuntimeException("Incorrect Password");
-					} else {
-						String token = jwt.generateJwt(userNameLogin);
-						loginResponse.setUser(userNameLogin);
-						loginResponse.setToken(token);
-						return loginResponse;
-					}
+					String token = jwt.generateJwt(emailLogin);
+					loginResponse.setUser(emailLogin);
+					loginResponse.setToken(token);
+					return loginResponse;
 				}
-				
 			}
 			
 		}

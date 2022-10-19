@@ -16,9 +16,5 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authInterceptor).excludePathPatterns("/login");
 	}
-	
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").exposedHeaders("Access-Control-Allow-Origin").allowedMethods("*").allowedHeaders("Access-Control-Allow-Origin");
-	}
+
 }

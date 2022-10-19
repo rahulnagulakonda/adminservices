@@ -15,7 +15,6 @@ import com.interon.admin.service.LoginService;
 
 @RestController
 @RequestMapping("/login")
-@CrossOrigin(origins = "*")
 public class LoginController {
 	
 	@Autowired

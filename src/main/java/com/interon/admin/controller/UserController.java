@@ -21,7 +21,6 @@ import com.interon.admin.util.JwtUtils;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired

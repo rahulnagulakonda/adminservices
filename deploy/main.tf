@@ -1,6 +1,6 @@
 variable "env" {}
 
-variable "docker_image_version" {}
+//variable "docker_image_version" {}
 
 provider "aws" {
     region = "us-east-1"

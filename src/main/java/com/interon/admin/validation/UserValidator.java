@@ -138,12 +138,14 @@ public class UserValidator {
 				listMessages.add("Enter a valid 5 or 6 digit zipcode");
 				validationStatus.setStatus(Status.INVALID);
 			}
-			if (ValidationUtils.isNullString(country)) {
-				listMessages.add("Select Country");
+			if (ValidationUtils.isNullString(country) || !ValidationUtils.regexValidate(country, allChars)
+					|| ValidationUtils.isStringLengthMoreThan25(country)) {
+				listMessages.add("Enter a valid Country");
 				validationStatus.setStatus(Status.INVALID);
 			}
-			if (ValidationUtils.isNullString(gender)) {
-				listMessages.add("Select Gender");
+			if (ValidationUtils.isNullString(gender) || !ValidationUtils.regexValidate(gender, allChars)
+					|| ValidationUtils.isStringLengthMoreThan25(gender)) {
+				listMessages.add("Enter a valid Gender");
 				validationStatus.setStatus(Status.INVALID);
 			}
 			if (ValidationUtils.isNullString(emergencyContactName) || !ValidationUtils.regexValidate(emergencyContactName, allChars)
@@ -165,8 +167,9 @@ public class UserValidator {
 				listMessages.add("Enter a valid 10 digit Emergency Contact Number");
 				validationStatus.setStatus(Status.INVALID);
 			}
-			if (ValidationUtils.isNullString(emergencyContectLocation)) {
-				listMessages.add("Select Emergency Contact Location");
+			if (ValidationUtils.isNullString(emergencyContectLocation) || !ValidationUtils.regexValidate(emergencyContectLocation, allChars)
+					|| ValidationUtils.isStringLengthMoreThan25(emergencyContectLocation)) {
+				listMessages.add("Enter a valid Emergency Contact Location");
 				validationStatus.setStatus(Status.INVALID);
 			}
 			if (ValidationUtils.isEmptyList(roles)) {
@@ -268,12 +271,14 @@ public class UserValidator {
 				listMessages.add("Enter a valid 5 or 6 digit zipcode");
 				validationStatus.setStatus(Status.INVALID);
 			}
-			if (ValidationUtils.isNullString(country)) {
-				listMessages.add("Select Country");
+			if (ValidationUtils.isNullString(country) || !ValidationUtils.regexValidate(country, allChars)
+					|| ValidationUtils.isStringLengthMoreThan25(country)) {
+				listMessages.add("Enter a valid Country");
 				validationStatus.setStatus(Status.INVALID);
 			}
-			if (ValidationUtils.isNullString(gender)) {
-				listMessages.add("Select Gender");
+			if (ValidationUtils.isNullString(gender) || !ValidationUtils.regexValidate(gender, allChars)
+					|| ValidationUtils.isStringLengthMoreThan25(gender)) {
+				listMessages.add("Enter a valid Gender");
 				validationStatus.setStatus(Status.INVALID);
 			}
 			if (ValidationUtils.isNullString(emergencyContactName) || !ValidationUtils.regexValidate(emergencyContactName, allChars)
@@ -295,8 +300,9 @@ public class UserValidator {
 				listMessages.add("Enter a valid 10 digit Emergency Contact Number");
 				validationStatus.setStatus(Status.INVALID);
 			}
-			if (ValidationUtils.isNullString(emergencyContectLocation)) {
-				listMessages.add("Select Emergency Contact Location");
+			if (ValidationUtils.isNullString(emergencyContectLocation) || !ValidationUtils.regexValidate(emergencyContectLocation, allChars)
+					|| ValidationUtils.isStringLengthMoreThan25(emergencyContectLocation)) {
+				listMessages.add("Enter a valid Emergency Contact Location");
 				validationStatus.setStatus(Status.INVALID);
 			}
 			if (ValidationUtils.isEmptyList(roles)) {

@@ -138,6 +138,7 @@ public class UserService {
 				throw new RuntimeException("Passwords doesn't match");
 			} else {
 				userPass.setPassword(newPass.getPassword());
+				userPass.setReEnterPassword(newPass.getReEnterPassword());
 				userRepo.save(userPass);
 				return userPass;
 			}

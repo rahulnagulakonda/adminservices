@@ -1,13 +1,13 @@
 variable "env" {}
 
-//variable "docker_image_version" {}
+variable "docker_image_version" {}
 
 provider "aws" {
     region = "us-east-1"
 }
 
 //ecs task for development
-resource "aws_ecs_task_definition" "mytaskdefinition" {
+resource "aws_ecs_task_definition" "mytaskdefinition_${var.env}" {
     requires_compatibilities = ["FARGATE"]
     family = "adminservices_task_${var.env}"
     network_mode = "awsvpc"
@@ -18,7 +18,7 @@ resource "aws_ecs_task_definition" "mytaskdefinition" {
         [
             {
             "name" : "adminservices_container_${var.env}",
-            "image" : "429055212256.dkr.ecr.us-east-1.amazonaws.com/interon:latest",
+            "image" : "429055212256.dkr.ecr.us-east-1.amazonaws.com/interon:${var.docker_image_version}",
             "memory" : 1024,
             "portMappings" : [
                 {
@@ -46,14 +46,14 @@ resource "aws_ecs_task_definition" "mytaskdefinition" {
 
 }
 
-resource "aws_ecs_cluster" "mycluster" {
+resource "aws_ecs_cluster" "mycluster_${var.env}" {
     name = "adminservices_cluster_${var.env}"
 }
 
-resource "aws_ecs_service" "myclutserservice" {
+resource "aws_ecs_service" "myclutserservice_${var.env}" {
     launch_type = "FARGATE"
-    task_definition = aws_ecs_task_definition.mytaskdefinition.arn
-    cluster = aws_ecs_cluster.mycluster.id
+    task_definition = aws_ecs_task_definition.mytaskdefinition_${var.env}.arn
+    cluster = aws_ecs_cluster.mycluster_${var.env}.id
     name = "adminservices_service_${var.env}"
     desired_count = 1
     deployment_maximum_percent         = "200"
